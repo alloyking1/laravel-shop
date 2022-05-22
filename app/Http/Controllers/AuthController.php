@@ -9,7 +9,6 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Resources\UserResource;
 use Exception;
-// use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +85,15 @@ class AuthController extends Controller
 
     public function me()
     {
-        return false;
+        try {
+            return response()->json([
+                'user' => new UserResource(Auth::user())
+            ]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                "error" => $e->getMessage(),
+            ], 500);
+        }
     }
 }
