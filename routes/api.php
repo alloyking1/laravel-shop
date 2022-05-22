@@ -18,14 +18,13 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::group('/v1', function(){
-//     Route::group('/user', function (){
-
-//     });
-// });
-
 Route::prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
+        Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::get('/me', [\App\Http\Controllers\AuthController::class, 'me']);
+            Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+        });
     });
 });
