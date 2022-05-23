@@ -27,4 +27,10 @@ Route::prefix('v1')->group(function () {
             Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
         });
     });
+
+    Route::prefix('/category')->group(function () {
+        Route::middleware('auth:sanctum')->group(function () {
+            // admin features here
+        });
+    });
 });
