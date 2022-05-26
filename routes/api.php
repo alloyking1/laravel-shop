@@ -30,7 +30,9 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('/category')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
-            // admin features here
+            Route::middleware('isAdmin')->group(function () {
+                Route::post('/create', [\App\Http\Controllers\CategoryController::class, 'create']);
+            });
         });
     });
 });
