@@ -24,9 +24,9 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:225|',
+            'name' => 'required|string|max:225|unique:categories',
             'description' => 'required|string|max:225',
-            'image' => 'nullable|file'
+            'image' => 'nullable|file|image|mimes:mimes:jpg,png,jpeg,gif,svg|max:2048'
         ];
     }
 }
